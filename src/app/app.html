@@ -1,0 +1,54 @@
+<!-- Vista del componente App: formulario + lista de tareas -->
+<main class="contenedor">
+  <header>
+    <h1>Gestor de Tareas</h1>
+    <p>Angular + FastAPI + SQLite</p>
+  </header>
+
+  <!-- Formulario: al enviarlo (ngSubmit) se llama a guardar() -->
+  <form class="tarjeta" (ngSubmit)="guardar()">
+    <!-- El título cambia si estamos creando o editando -->
+    <h2>{{ editandoId() === null ? 'Nueva tarea' : 'Editar tarea' }}</h2>
+    <!-- [(ngModel)] enlaza el input con form.titulo en ambas direcciones -->
+    <input name="titulo" placeholder="Título" [(ngModel)]="form.titulo" required />
+    <textarea name="descripcion" placeholder="Descripción" [(ngModel)]="form.descripcion"></textarea>
+    <label class="check">
+      <input type="checkbox" name="completada" [(ngModel)]="form.completada" />
+      Completada
+    </label>
+    <div class="acciones">
+      <button type="submit" class="primario">{{ editandoId() === null ? 'Crear' : 'Guardar cambios' }}</button>
+      <!-- El botón Cancelar solo aparece en modo edición -->
+      @if (editandoId() !== null) {
+        <button type="button" (click)="cancelar()">Cancelar</button>
+      }
+    </div>
+  </form>
+
+  <!-- Mensaje de error si la API no responde -->
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <!-- Lista de tareas: @for repite el li por cada tarea -->
+  <!-- track tarea.id ayuda a Angular a identificar cada elemento -->
+  <ul class="lista">
+    @for (tarea of tareas(); track tarea.id) {
+      <!-- [class.hecha] agrega la clase CSS si la tarea está completada -->
+      <li class="tarjeta" [class.hecha]="tarea.completada">
+        <input type="checkbox" [checked]="tarea.completada" (change)="alternar(tarea)" />
+        <div class="texto">
+          <strong>{{ tarea.titulo }}</strong>
+          @if (tarea.descripcion) {
+            <span>{{ tarea.descripcion }}</span>
+          }
+        </div>
+        <button type="button" (click)="editar(tarea)">Editar</button>
+        <button type="button" class="peligro" (click)="eliminar(tarea.id)">Eliminar</button>
+      </li>
+    } @empty {
+      <!-- @empty se muestra cuando la lista está vacía -->
+      <li class="vacio">No hay tareas todavía. ¡Crea la primera!</li>
+    }
+  </ul>
+</main>

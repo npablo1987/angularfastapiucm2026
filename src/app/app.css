@@ -1,0 +1,45 @@
+/* Estilos del componente App (solo afectan a este componente) */
+
+/* Contenedor centrado con ancho máximo */
+.contenedor { max-width: 720px; margin: 40px auto; padding: 0 16px; }
+header h1 { margin: 0; color: #1b3a6b; }
+header p { margin: 4px 0 24px; color: #5a6b85; }
+
+/* Tarjeta blanca con sombra: se usa en el formulario y en cada tarea */
+.tarjeta {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(27, 58, 107, 0.12);
+}
+
+/* Formulario: elementos en columna */
+form.tarjeta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+form h2 { margin: 0 0 4px; font-size: 18px; color: #1b3a6b; }
+input:not([type='checkbox']), textarea {
+  padding: 10px; border: 1px solid #cdd6e4; border-radius: 8px; font: inherit;
+}
+textarea { min-height: 60px; resize: vertical; }
+.check { display: flex; align-items: center; gap: 8px; color: #33425c; }
+.acciones { display: flex; gap: 8px; }
+
+/* Botones: normal, primario (azul) y peligro (rojo) */
+button {
+  padding: 8px 14px; border: 1px solid #cdd6e4; border-radius: 8px;
+  background: #fff; cursor: pointer; font: inherit;
+}
+button.primario { background: #009fdb; border-color: #009fdb; color: #fff; }
+button.peligro { color: #c62828; border-color: #f1b5b5; }
+
+/* Lista de tareas: cada tarea en una fila */
+.lista { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.lista li { display: flex; align-items: center; gap: 12px; }
+.texto { flex: 1; display: flex; flex-direction: column; }
+.texto span { color: #5a6b85; font-size: 14px; }
+
+/* Tarea completada: título tachado y gris */
+.hecha strong { text-decoration: line-through; color: #8a97ab; }
+
+/* Mensajes: lista vacía y error */
+.vacio { text-align: center; color: #8a97ab; padding: 24px; }
+.error { color: #c62828; background: #fdecec; padding: 10px; border-radius: 8px; }
